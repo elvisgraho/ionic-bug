@@ -1,0 +1,9 @@
+{
+  "navigationPages": [
+    {
+      "title": "Start",
+      "url": "/home",
+      "icon": "home"
+    }
+  ]
+}

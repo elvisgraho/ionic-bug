@@ -1,0 +1,100 @@
+<ion-app>
+  <ion-split-pane when="false" contentId="leftMenu">
+    <ion-menu [disabled]="isNavDisabled" contentId="leftMenu" type="overlay">
+      <ion-header class="ion-no-padding ion-no-margin"> </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle
+            #rla="routerLinkActive"
+            routerLinkActive
+            auto-hide="false"
+            *ngFor="let p of fallbackNavigationPages"
+          >
+            <ng-container *ngIf="p.url.includes('/'); else navBtn">
+              <ion-item
+                class="navigation-item"
+                [detail]="rla.isActive ? false : true"
+                routerLinkActive="navigation--active"
+                [routerLink]="[p.url]"
+              >
+                <ion-icon
+                  [class.active]="rla.isActive"
+                  slot="start"
+                  [name]="p.icon"
+                ></ion-icon>
+                <ion-label
+                  class="navigation-item-label"
+                  [class.active]="rla.isActive"
+                >
+                  {{ p.title }}
+                </ion-label>
+              </ion-item>
+            </ng-container>
+
+            <ng-template #navBtn>
+              <ion-item
+                [detail]="false"
+                class="navigation-item"
+                (click)="emitNonRouteEvents(p.url)"
+              >
+                <ion-icon
+                  color="tertiary"
+                  slot="start"
+                  [name]="p.icon"
+                ></ion-icon>
+                <ion-label class="navigation-item-label">
+                  {{ p.title }}
+                </ion-label>
+              </ion-item>
+            </ng-template>
+          </ion-menu-toggle>
+
+          <ion-item-divider></ion-item-divider>
+
+          <ion-menu-toggle
+            #rla="routerLinkActive"
+            routerLinkActive
+            auto-hide="false"
+            *ngFor="let p of fallbackMenuPages"
+          >
+            <ng-container *ngIf="p.url.includes('/'); else navBtn">
+              <ion-item
+                class="navigation-item"
+                [detail]="rla.isActive ? false : true"
+                routerLinkActive="navigation--active"
+                [routerDirection]="'root'"
+                [routerLink]="[p.url]"
+              >
+                <ion-icon
+                  [class.active]="rla.isActive"
+                  slot="start"
+                  [name]="p.icon"
+                ></ion-icon>
+                <ion-label
+                  class="navigation-item-label"
+                  [class.active]="rla.isActive"
+                >
+                  {{ p.title }}
+                </ion-label>
+              </ion-item>
+            </ng-container>
+
+            <ng-template #navBtn>
+              <ion-item
+                [detail]="false"
+                class="navigation-item"
+                (click)="emitNonRouteEvents(p.url)"
+              >
+                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-label class="navigation-item-label">
+                  {{ p.title }}
+                </ion-label>
+              </ion-item>
+            </ng-template>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet [swipeGesture]="false" id="leftMenu"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
